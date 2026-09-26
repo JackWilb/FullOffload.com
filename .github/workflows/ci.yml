@@ -49,5 +49,13 @@ jobs:
             exit 1
           }
 
+      - name: Install Playwright Chromium
+        run: pnpm --filter web exec playwright install --with-deps chromium
+
+      - name: Smoke test (Playwright, phone width)
+        run: |
+          cp web/.env.example web/.env
+          pnpm test:e2e
+
       - name: Build
         run: pnpm build

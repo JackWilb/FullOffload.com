@@ -4,6 +4,65 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Full Offload</title>
+    <meta
+      name="description"
+      content="See which models hit full offload on your hardware. Real tokens-per-second results for llama.cpp, Ollama, vLLM, MLX and LM Studio, with the exact command behind every number."
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href="https://fulloffload.com/" />
+    <meta
+      name="theme-color"
+      content="#ffffff"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#1c1c1f"
+      media="(prefers-color-scheme: dark)"
+    />
+
+    <!-- Link previews. The app is client-rendered, so these are static. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Full Offload" />
+    <meta property="og:title" content="Full Offload" />
+    <meta
+      property="og:description"
+      content="See which models hit full offload on your hardware. Real tok/s from real rigs, with the exact command behind every number."
+    />
+    <meta property="og:url" content="https://fulloffload.com/" />
+    <meta property="og:image" content="https://fulloffload.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Full Offload: see which models hit full offload on your hardware."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Full Offload" />
+    <meta
+      name="twitter:description"
+      content="See which models hit full offload on your hardware."
+    />
+    <meta name="twitter:image" content="https://fulloffload.com/og-image.png" />
+
+    <!-- Mantine's ColorSchemeScript, inlined: sets the scheme before first paint so dark-mode
+         visitors never see a white flash. -->
+    <script>
+      try {
+        var stored = window.localStorage.getItem("mantine-color-scheme-value");
+        var scheme = stored === "light" || stored === "dark" ? stored : "auto";
+        var computed =
+          scheme !== "auto"
+            ? scheme
+            : window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
+        document.documentElement.setAttribute(
+          "data-mantine-color-scheme",
+          computed,
+        );
+      } catch (e) {}
+    </script>
   </head>
   <body>
     <div id="root"></div>

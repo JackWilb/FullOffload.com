@@ -5,7 +5,8 @@ select plan(3);
 truncate public.submissions, public.device_aliases, public.devices;
 
 insert into auth.users (id, email)
-values ('11111111-1111-1111-1111-111111111111', 'alice@example.com');
+values ('a11ce000-0000-4000-8000-00000000a11c', 'alice@example.com')
+on conflict (id) do nothing;
 
 insert into public.devices (name, vendor, vram_gb, memory_bandwidth_gbps, status)
 values ('Test GPU 9000', 'NVIDIA', 24, 1000, 'curated');
@@ -14,7 +15,7 @@ insert into public.submissions (
   user_id, device_id, device_count, raw_command, runtime, model, quant, context_size,
   gen_tok_s, prompt_tok_s
 )
-select '11111111-1111-1111-1111-111111111111', d.id, v.device_count, 'cmd', v.runtime, v.model,
+select 'a11ce000-0000-4000-8000-00000000a11c', d.id, v.device_count, 'cmd', v.runtime, v.model,
   v.quant, v.context_size, v.gen, v.prompt
 from public.devices d
 cross join (values

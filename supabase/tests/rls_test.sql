@@ -7,8 +7,9 @@ select plan(32);
 truncate public.submissions, public.device_aliases, public.devices;
 
 insert into auth.users (id, email) values
-  ('11111111-1111-1111-1111-111111111111', 'alice@example.com'),
-  ('22222222-2222-2222-2222-222222222222', 'bob@example.com');
+  ('a11ce000-0000-4000-8000-00000000a11c', 'alice@example.com'),
+  ('b0b00000-0000-4000-8000-000000000b0b', 'bob@example.com')
+on conflict (id) do nothing;
 
 insert into public.devices (name, vendor, vram_gb, memory_bandwidth_gbps, status)
 values ('Test GPU 9000', 'NVIDIA', 24, 1000, 'curated');
@@ -22,8 +23,8 @@ insert into public.submissions (
 select u.id, d.id, 1, 'llama-bench -m m.gguf', 'llama.cpp', 'm', 'q4_k_m', 100, 1000
 from public.devices d
 cross join (values
-  ('11111111-1111-1111-1111-111111111111'::uuid),
-  ('22222222-2222-2222-2222-222222222222'::uuid)
+  ('a11ce000-0000-4000-8000-00000000a11c'::uuid),
+  ('b0b00000-0000-4000-8000-000000000b0b'::uuid)
 ) as u (id);
 
 -- ---------------------------------------------------------------------------------------------
@@ -73,7 +74,7 @@ select throws_ok(
 reset role;
 set local role authenticated;
 set local request.jwt.claims =
-  '{"sub": "11111111-1111-1111-1111-111111111111", "role": "authenticated"}';
+  '{"sub": "a11ce000-0000-4000-8000-00000000a11c", "role": "authenticated"}';
 
 select isnt_empty($$ select 1 from public.devices $$, 'users can read devices');
 select isnt_empty($$ select 1 from public.device_aliases $$, 'users can read device_aliases');
@@ -91,13 +92,13 @@ select lives_ok(
 );
 select is(
   (select user_id from public.submissions where runtime = 'ollama'),
-  '11111111-1111-1111-1111-111111111111'::uuid,
+  'a11ce000-0000-4000-8000-00000000a11c'::uuid,
   'the new submission belongs to the signed-in user'
 );
 select throws_ok(
   $$ insert into public.submissions (user_id, device_id, device_count, raw_command, runtime,
        model, gen_tok_s, prompt_tok_s)
-     select '22222222-2222-2222-2222-222222222222', id, 1, 'x', 'vllm', 'm', 1, 1
+     select 'b0b00000-0000-4000-8000-000000000b0b', id, 1, 'x', 'vllm', 'm', 1, 1
      from public.devices $$,
   '42501', null, 'users cannot insert a submission as someone else'
 );
@@ -109,18 +110,18 @@ select throws_ok(
 );
 select throws_ok(
   $$ update public.submissions set gen_tok_s = 999
-     where user_id = '11111111-1111-1111-1111-111111111111' $$,
+     where user_id = 'a11ce000-0000-4000-8000-00000000a11c' $$,
   '42501', null, 'users cannot edit submissions, even their own'
 );
 
 select lives_ok(
   $$ delete from public.submissions
-     where user_id = '22222222-2222-2222-2222-222222222222' $$,
+     where user_id = 'b0b00000-0000-4000-8000-000000000b0b' $$,
   'a delete aimed at another user''s submission runs'
 );
 select is(
   (select count(*)::integer from public.submissions
-   where user_id = '22222222-2222-2222-2222-222222222222'),
+   where user_id = 'b0b00000-0000-4000-8000-000000000b0b'),
   1,
   '...but deletes nothing: other users'' submissions are untouchable'
 );
@@ -171,7 +172,7 @@ reset role;
 
 select is(
   (select count(*)::integer from public.submissions
-   where user_id = '22222222-2222-2222-2222-222222222222'),
+   where user_id = 'b0b00000-0000-4000-8000-000000000b0b'),
   1,
   'the other user''s submission still exists'
 );

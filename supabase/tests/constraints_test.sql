@@ -5,14 +5,15 @@ select plan(26);
 truncate public.submissions, public.device_aliases, public.devices;
 
 insert into auth.users (id, email)
-values ('11111111-1111-1111-1111-111111111111', 'alice@example.com');
+values ('a11ce000-0000-4000-8000-00000000a11c', 'alice@example.com')
+on conflict (id) do nothing;
 
 insert into public.devices (name, vendor, vram_gb, memory_bandwidth_gbps, status)
 values ('Test GPU 9000', 'NVIDIA', 24, 1000, 'curated');
 
 set local role authenticated;
 set local request.jwt.claims =
-  '{"sub": "11111111-1111-1111-1111-111111111111", "role": "authenticated"}';
+  '{"sub": "a11ce000-0000-4000-8000-00000000a11c", "role": "authenticated"}';
 
 -- Inserts one submission, overriding a single column with a raw SQL expression.
 create function pg_temp.submit(col text, val text) returns void language plpgsql as $$
