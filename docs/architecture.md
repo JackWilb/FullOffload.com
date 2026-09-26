@@ -153,9 +153,9 @@ The repo is public with an MIT `LICENSE`. There is one Supabase project (prod, f
 
 - **Local dev:** Supabase CLI runs the stack in Docker. Schema changes happen only through committed migrations; never edit the prod schema in the dashboard.
 - **Frontend deploy:** GitHub Actions builds the Vite app and publishes to GitHub Pages (source set to "GitHub Actions"). Custom domain fulloffload.com with HTTPS enforced; Hover DNS points the apex (A/AAAA records) and `www` (CNAME) at GitHub Pages.
-- **Database deploy:** on merge to `main`, an Action runs `supabase db push`, then re-applies `supabase/seed.sql` (an idempotent upsert of the curated devices, so spec fixes there reach prod).
+- **Database deploy:** on merge to `main`, an Action runs `supabase db push`, then re-applies `supabase/seed.sql` with `psql` (an idempotent upsert of the curated devices, so spec fixes there reach prod).
 - **Keepalive:** a scheduled Action runs a real query twice a week so the free-tier project doesn't pause after a week of inactivity. GitHub emails on workflow failures and before disabling scheduled workflows in inactive repos, so no custom alerting is needed.
-- **Secrets:** `SUPABASE_ACCESS_TOKEN`, project ref and DB password in GitHub Actions secrets. The anon key and project URL are public and go in frontend config.
+- **Secrets:** one GitHub Actions secret, `SUPABASE_DB_URL` (the session pooler connection string, including the DB password), so deploys need no expiring access token. The anon key and project URL are public and go in frontend config.
 
 Repo layout (one monorepo):
 

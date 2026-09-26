@@ -52,9 +52,9 @@ Two scripts run outside pnpm:
 
 These are the one-time manual steps. Nothing in the repo needs to change for them; each one unlocks part of the deploy. Values below use the production project ref `wvmjqlrxubletsbpswur` (the ID in the Supabase dashboard URL).
 
-### 1. Link the Supabase project and confirm the Data API settings
+### 1. Confirm the Supabase Data API settings
 
-1. From the repo root, run `pnpm supabase login`, then `pnpm supabase link --project-ref wvmjqlrxubletsbpswur` and enter the database password. (Forgot it? Reset it under **Project Settings → Database**.) Linking lets you run `pnpm supabase migration list` and `pnpm supabase db advisors --linked` locally. Deploys don't need it: CI links on its own.
+1. Nothing to clone or link: the Deploy workflow connects to the database directly with the `SUPABASE_DB_URL` secret (step 6).
 2. In the dashboard, open **Project Settings → Data API** (under **Integrations → Data API** in some dashboard versions) and confirm:
    - The Data API is enabled and the exposed schemas include `public`.
    - **Automatically expose new tables and functions** is off. Every table and view gets its grants explicitly in its migration.
@@ -115,11 +115,9 @@ In the repo, go to **Settings → Secrets and variables → Actions**.
 
 **Secrets** (tab **Secrets**):
 
-| Name                    | Value                                                                      |
-| ----------------------- | -------------------------------------------------------------------------- |
-| `SUPABASE_ACCESS_TOKEN` | A personal access token from https://supabase.com/dashboard/account/tokens |
-| `SUPABASE_PROJECT_REF`  | `wvmjqlrxubletsbpswur`                                                     |
-| `SUPABASE_DB_PASSWORD`  | The database password (**Project Settings → Database**)                    |
+| Name              | Value                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `SUPABASE_DB_URL` | The **Session pooler** connection string: in the Supabase dashboard, click **Connect**, pick **Session pooler** (GitHub's runners can't reach the direct IPv6 host), copy the URI and replace `[YOUR-PASSWORD]` with the database password (**Project Settings → Database** if you need to reset it). Percent-encode special characters in the password, or pick one with only letters and digits. It never expires unless you change the password. |
 
 **Variables** (tab **Variables**):
 
