@@ -1,0 +1,29 @@
+# Dependencies and build output
+node_modules/
+dist/
+dist-ssr/
+*.tsbuildinfo
+
+# Environment files (commit only .env.example)
+.env
+.env.*
+!.env.example
+*.local
+
+# Playwright
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
+# Supabase local files
+supabase/.branches/
+supabase/.temp/
+supabase/.env
+
+# Logs and editors
+*.log
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json

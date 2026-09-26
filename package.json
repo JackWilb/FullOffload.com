@@ -1,0 +1,30 @@
+{
+  "name": "fulloffload",
+  "private": true,
+  "description": "Full Offload: see which models hit full offload on your hardware.",
+  "license": "MIT",
+  "type": "module",
+  "packageManager": "pnpm@12.6.0",
+  "engines": {
+    "node": ">=24.21.0"
+  },
+  "scripts": {
+    "dev": "pnpm --filter web dev",
+    "build": "pnpm --filter web build",
+    "lint": "pnpm --filter web lint && prettier --check .",
+    "typecheck": "pnpm --filter web typecheck",
+    "format": "prettier --write .",
+    "test": "pnpm --filter web test",
+    "test:e2e": "pnpm --filter web test:e2e",
+    "test:db": "supabase test db",
+    "db:start": "supabase start",
+    "db:stop": "supabase stop",
+    "db:reset": "supabase db reset",
+    "db:types": "supabase gen types typescript --local > web/src/lib/database.types.ts",
+    "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm build"
+  },
+  "devDependencies": {
+    "prettier": "^3.9.9",
+    "supabase": "^2.118.0"
+  }
+}
