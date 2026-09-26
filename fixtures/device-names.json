@@ -1,0 +1,39 @@
+[
+  { "input": "RTX 4090", "expected": "rtx 4090" },
+  { "input": "NVIDIA GeForce RTX 4090", "expected": "rtx 4090" },
+  { "input": "nvidia geforce rtx4090", "expected": "rtx 4090" },
+  { "input": "RTX-4090", "expected": "rtx 4090" },
+  { "input": "GeForce RTX 4090 24GB VRAM", "expected": "rtx 4090 24gb" },
+  { "input": "RTX 4090 (24 GB)", "expected": "rtx 4090 24gb" },
+  { "input": "RTX 4060 Ti 16 GB", "expected": "rtx 4060 ti 16gb" },
+  { "input": "RTX 4060 Ti 16GB", "expected": "rtx 4060 ti 16gb" },
+  { "input": "rtx 4060ti 16 gib", "expected": "rtx 4060 ti 16gb" },
+  { "input": "RTX 4060 Ti 8 GB", "expected": "rtx 4060 ti 8gb" },
+  { "input": "RTX 4070 Ti SUPER", "expected": "rtx 4070 ti super" },
+  { "input": "RTX 5090 D", "expected": "rtx 5090 d" },
+  { "input": "RTX 5090D", "expected": "rtx 5090 d" },
+  { "input": "RTX A6000", "expected": "rtx a6000" },
+  { "input": "RTX PRO 6000 Blackwell", "expected": "rtx pro 6000 blackwell" },
+  { "input": "NVIDIA DGX Spark", "expected": "dgx spark" },
+  { "input": "AMD Radeon RX 7900 XTX", "expected": "rx 7900 xtx" },
+  { "input": "Radeon RX7900XTX", "expected": "rx 7900 xtx" },
+  { "input": "RX 9070 XT", "expected": "rx 9070 xt" },
+  { "input": "AMD Radeon PRO W7900", "expected": "pro w7900" },
+  {
+    "input": "AMD Ryzen AI Max+ 395 (128 GB)",
+    "expected": "ryzen ai max 395 128gb"
+  },
+  {
+    "input": "Apple M3 Max (40-core GPU, 128 GB)",
+    "expected": "m3 max 40 core gpu 128gb"
+  },
+  {
+    "input": "apple m3 max 40-core gpu 128gb",
+    "expected": "m3 max 40 core gpu 128gb"
+  },
+  { "input": "M3Max 40c GPU 128GB", "expected": "m3 max 40 c gpu 128gb" },
+  { "input": "Apple M2 Ultra (192 GB)", "expected": "m2 ultra 192gb" },
+  { "input": "  Mac   Studio  ", "expected": "mac studio" },
+  { "input": "NVIDIA", "expected": "" },
+  { "input": "!!!", "expected": "" }
+]

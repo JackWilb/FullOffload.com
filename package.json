@@ -20,7 +20,7 @@
     "db:start": "supabase start",
     "db:stop": "supabase stop",
     "db:reset": "supabase db reset",
-    "db:types": "supabase gen types typescript --local > web/src/lib/database.types.ts",
+    "db:types": "supabase gen types typescript --local > web/src/lib/database.types.ts && prettier --write --log-level warn web/src/lib/database.types.ts",
     "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm build"
   },
   "devDependencies": {
