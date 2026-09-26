@@ -1,0 +1,9 @@
+{
+  "input": "python generate.py --model my-model --tokens 128",
+  "expected": {
+    "runtime": null,
+    "model": null,
+    "quant": null,
+    "contextSize": null
+  }
+}

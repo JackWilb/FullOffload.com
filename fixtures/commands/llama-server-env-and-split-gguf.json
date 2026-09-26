@@ -1,0 +1,9 @@
+{
+  "input": "CUDA_VISIBLE_DEVICES=0,1 llama-server -m /data/Llama-3.3-70B-Instruct-Q4_K_M-00001-of-00002.gguf -ngl 99 -c 16384 --split-mode layer --tensor-split 1,1",
+  "expected": {
+    "runtime": "llama.cpp",
+    "model": "llama-3.3-70b-instruct",
+    "quant": "q4_k_m",
+    "contextSize": 16384
+  }
+}

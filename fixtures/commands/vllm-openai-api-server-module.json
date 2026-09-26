@@ -1,0 +1,9 @@
+{
+  "input": "python -m vllm.entrypoints.openai.api_server --model meta-llama/Llama-3.1-8B-Instruct --max-model-len 8192",
+  "expected": {
+    "runtime": "vllm",
+    "model": "llama-3.1-8b-instruct",
+    "quant": null,
+    "contextSize": 8192
+  }
+}

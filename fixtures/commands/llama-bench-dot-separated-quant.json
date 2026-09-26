@@ -1,0 +1,9 @@
+{
+  "input": "llama-bench -m /models/llama-2-7b-chat.Q4_K_M.gguf -p 512 -n 128",
+  "expected": {
+    "runtime": "llama.cpp",
+    "model": "llama-2-7b-chat",
+    "quant": "q4_k_m",
+    "contextSize": null
+  }
+}

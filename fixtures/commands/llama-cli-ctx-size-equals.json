@@ -1,0 +1,9 @@
+{
+  "input": "./build/bin/llama-cli -m ~/models/Meta-Llama-3.1-8B-Instruct-Q8_0.gguf --ctx-size=8192 -ngl 999 -p \"Explain \\\"full offload\\\" in one sentence\"",
+  "expected": {
+    "runtime": "llama.cpp",
+    "model": "meta-llama-3.1-8b-instruct",
+    "quant": "q8_0",
+    "contextSize": 8192
+  }
+}

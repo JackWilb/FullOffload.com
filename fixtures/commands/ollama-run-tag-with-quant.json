@@ -1,0 +1,9 @@
+{
+  "input": "ollama run qwen3:30b-a3b-q4_K_M --verbose",
+  "expected": {
+    "runtime": "ollama",
+    "model": "qwen3-30b-a3b",
+    "quant": "q4_k_m",
+    "contextSize": null
+  }
+}

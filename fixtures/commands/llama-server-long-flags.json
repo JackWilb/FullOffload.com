@@ -1,0 +1,9 @@
+{
+  "input": "llama-server --model Qwen3-235B-A22B-Instruct-2507-UD-Q2_K_XL-00001-of-00002.gguf --n-gpu-layers 99 --ctx-size 65536 -ot \".ffn_.*_exps.=CPU\"",
+  "expected": {
+    "runtime": "llama.cpp",
+    "model": "qwen3-235b-a22b-instruct-2507",
+    "quant": "ud_q2_k_xl",
+    "contextSize": 65536
+  }
+}

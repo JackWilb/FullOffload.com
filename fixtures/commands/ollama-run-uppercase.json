@@ -1,0 +1,9 @@
+{
+  "input": "Ollama run Gemma3:27B --verbose",
+  "expected": {
+    "runtime": "ollama",
+    "model": "gemma3-27b",
+    "quant": null,
+    "contextSize": null
+  }
+}

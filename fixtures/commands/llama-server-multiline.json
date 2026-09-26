@@ -1,0 +1,9 @@
+{
+  "input": "llama-server \\\n  -m ./DeepSeek-R1-Distill-Qwen-32B-Q5_K_M.gguf \\\n  -ngl 99 \\\n  -c 32768",
+  "expected": {
+    "runtime": "llama.cpp",
+    "model": "deepseek-r1-distill-qwen-32b",
+    "quant": "q5_k_m",
+    "contextSize": 32768
+  }
+}

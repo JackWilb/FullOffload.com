@@ -8,7 +8,5 @@ export default defineConfig({
   base: "/",
   test: {
     include: ["src/**/*.test.ts"],
-    // Removed once the parser suite lands (build step 5).
-    passWithNoTests: true,
   },
 });

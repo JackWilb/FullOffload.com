@@ -1,0 +1,9 @@
+{
+  "input": "vllm serve meta-llama/Llama-3.1-8B-Instruct --quantization fp8 --max-model-len 16384",
+  "expected": {
+    "runtime": "vllm",
+    "model": "llama-3.1-8b-instruct",
+    "quant": "fp8",
+    "contextSize": 16384
+  }
+}

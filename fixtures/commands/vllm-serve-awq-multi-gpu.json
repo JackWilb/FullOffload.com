@@ -1,0 +1,9 @@
+{
+  "input": "vllm serve Qwen/Qwen3-32B-AWQ --tensor-parallel-size 2 --max-model-len 32768 --gpu-memory-utilization 0.92",
+  "expected": {
+    "runtime": "vllm",
+    "model": "qwen3-32b",
+    "quant": "awq",
+    "contextSize": 32768
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "input": "I used the default settings in the app",
+  "expected": {
+    "runtime": null,
+    "model": null,
+    "quant": null,
+    "contextSize": null
+  }
+}

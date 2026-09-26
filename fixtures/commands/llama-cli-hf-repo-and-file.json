@@ -1,0 +1,9 @@
+{
+  "input": "llama-cli --hf-repo bartowski/Mistral-Small-3.2-24B-Instruct-2506-GGUF --hf-file Mistral-Small-3.2-24B-Instruct-2506-IQ4_XS.gguf -ngl 99 -c 16384",
+  "expected": {
+    "runtime": "llama.cpp",
+    "model": "mistral-small-3.2-24b-instruct-2506",
+    "quant": "iq4_xs",
+    "contextSize": 16384
+  }
+}

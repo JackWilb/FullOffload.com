@@ -1,0 +1,9 @@
+{
+  "input": "lms load openai/gpt-oss-20b --context-length 8192",
+  "expected": {
+    "runtime": "lm-studio",
+    "model": "gpt-oss-20b",
+    "quant": null,
+    "contextSize": 8192
+  }
+}

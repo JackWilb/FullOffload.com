@@ -1,0 +1,9 @@
+{
+  "input": "ollama run mistral",
+  "expected": {
+    "runtime": "ollama",
+    "model": "mistral",
+    "quant": null,
+    "contextSize": null
+  }
+}

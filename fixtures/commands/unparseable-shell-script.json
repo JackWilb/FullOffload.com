@@ -1,0 +1,9 @@
+{
+  "input": "./run.sh --fast",
+  "expected": {
+    "runtime": null,
+    "model": null,
+    "quant": null,
+    "contextSize": null
+  }
+}

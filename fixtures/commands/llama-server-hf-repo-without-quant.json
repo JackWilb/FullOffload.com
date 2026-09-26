@@ -1,0 +1,9 @@
+{
+  "input": "llama-server -hf ggml-org/gpt-oss-20b-GGUF -ngl 99 -c 32768 -fa on --jinja",
+  "expected": {
+    "runtime": "llama.cpp",
+    "model": "gpt-oss-20b",
+    "quant": null,
+    "contextSize": 32768
+  }
+}

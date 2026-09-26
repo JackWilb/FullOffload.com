@@ -1,0 +1,9 @@
+{
+  "input": "llama-bench -m gpt-oss-20b-mxfp4.gguf -ngl 99 -fa 1 -p 2048 -n 128",
+  "expected": {
+    "runtime": "llama.cpp",
+    "model": "gpt-oss-20b",
+    "quant": "mxfp4",
+    "contextSize": null
+  }
+}

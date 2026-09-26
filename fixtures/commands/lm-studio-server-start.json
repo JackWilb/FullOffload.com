@@ -1,0 +1,9 @@
+{
+  "input": "lms server start",
+  "expected": {
+    "runtime": "lm-studio",
+    "model": null,
+    "quant": null,
+    "contextSize": null
+  }
+}

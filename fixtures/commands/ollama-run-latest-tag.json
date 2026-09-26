@@ -1,0 +1,9 @@
+{
+  "input": "ollama run qwen3:latest --verbose",
+  "expected": {
+    "runtime": "ollama",
+    "model": "qwen3",
+    "quant": null,
+    "contextSize": null
+  }
+}

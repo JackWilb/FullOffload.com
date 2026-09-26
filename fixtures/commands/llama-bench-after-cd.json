@@ -1,0 +1,9 @@
+{
+  "input": "cd ~/llama.cpp && ./build/bin/llama-bench -m models/qwen2.5-coder-7b-instruct-q4-k-m.gguf -ngl 99",
+  "expected": {
+    "runtime": "llama.cpp",
+    "model": "qwen2.5-coder-7b-instruct",
+    "quant": "q4_k_m",
+    "contextSize": null
+  }
+}

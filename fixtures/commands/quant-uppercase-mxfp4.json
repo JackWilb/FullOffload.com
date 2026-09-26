@@ -1,0 +1,9 @@
+{
+  "input": "llama-server -m gpt-oss-120b-MXFP4-00001-of-00003.gguf -ngl 99 -c 131072 --n-cpu-moe 24",
+  "expected": {
+    "runtime": "llama.cpp",
+    "model": "gpt-oss-120b",
+    "quant": "mxfp4",
+    "contextSize": 131072
+  }
+}

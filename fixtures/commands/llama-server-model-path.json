@@ -1,0 +1,9 @@
+{
+  "input": "llama-server -m models/Qwen3-30B-A3B-Q4_K_M.gguf -ngl 99 -c 32768 -fa on",
+  "expected": {
+    "runtime": "llama.cpp",
+    "model": "qwen3-30b-a3b",
+    "quant": "q4_k_m",
+    "contextSize": 32768
+  }
+}

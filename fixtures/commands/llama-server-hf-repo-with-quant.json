@@ -1,0 +1,9 @@
+{
+  "input": "llama-server -hf unsloth/Qwen3-30B-A3B-GGUF:Q4_K_M -ngl 99 -c 32768 --jinja",
+  "expected": {
+    "runtime": "llama.cpp",
+    "model": "qwen3-30b-a3b",
+    "quant": "q4_k_m",
+    "contextSize": 32768
+  }
+}

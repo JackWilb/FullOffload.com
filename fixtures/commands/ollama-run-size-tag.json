@@ -1,0 +1,9 @@
+{
+  "input": "ollama run llama3.1:8b --verbose",
+  "expected": {
+    "runtime": "ollama",
+    "model": "llama3.1-8b",
+    "quant": null,
+    "contextSize": null
+  }
+}

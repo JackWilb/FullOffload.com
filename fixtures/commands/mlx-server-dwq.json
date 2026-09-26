@@ -1,0 +1,9 @@
+{
+  "input": "mlx_lm.server --model mlx-community/Qwen3-30B-A3B-4bit-DWQ --port 8080",
+  "expected": {
+    "runtime": "mlx",
+    "model": "qwen3-30b-a3b",
+    "quant": "4bit_dwq",
+    "contextSize": null
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "input": "ollama run deepseek-r1:70b-llama-distill-q8_0 --verbose",
+  "expected": {
+    "runtime": "ollama",
+    "model": "deepseek-r1-70b-llama-distill",
+    "quant": "q8_0",
+    "contextSize": null
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "input": "vllm serve openai/gpt-oss-120b --max-model-len 128K",
+  "expected": {
+    "runtime": "vllm",
+    "model": "gpt-oss-120b",
+    "quant": null,
+    "contextSize": 131072
+  }
+}

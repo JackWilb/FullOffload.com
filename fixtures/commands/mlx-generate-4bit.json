@@ -1,0 +1,9 @@
+{
+  "input": "mlx_lm.generate --model mlx-community/Qwen3-30B-A3B-4bit --prompt \"Write a story about a GPU\" --max-tokens 512",
+  "expected": {
+    "runtime": "mlx",
+    "model": "qwen3-30b-a3b",
+    "quant": "4bit",
+    "contextSize": null
+  }
+}

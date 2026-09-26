@@ -1,0 +1,9 @@
+{
+  "input": "lms load qwen/qwen3-30b-a3b --context-length 32768 --gpu max",
+  "expected": {
+    "runtime": "lm-studio",
+    "model": "qwen3-30b-a3b",
+    "quant": null,
+    "contextSize": 32768
+  }
+}

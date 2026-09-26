@@ -1,0 +1,9 @@
+{
+  "input": "vllm serve Qwen/Qwen2.5-72B-Instruct-GPTQ-Int4 -tp 4 --max-model-len=16k",
+  "expected": {
+    "runtime": "vllm",
+    "model": "qwen2.5-72b-instruct",
+    "quant": "gptq_int4",
+    "contextSize": 16000
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "input": "llama-server -m phi-4-F16.gguf -ngl 99 -c 4096",
+  "expected": {
+    "runtime": "llama.cpp",
+    "model": "phi-4",
+    "quant": "f16",
+    "contextSize": 4096
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "input": "OLLAMA_CONTEXT_LENGTH=32768 ollama run hf.co/unsloth/Qwen3-30B-A3B-GGUF:Q4_K_M --verbose",
+  "expected": {
+    "runtime": "ollama",
+    "model": "qwen3-30b-a3b",
+    "quant": "q4_k_m",
+    "contextSize": 32768
+  }
+}
