@@ -69,7 +69,7 @@ These are the one-time manual steps. Nothing in the repo needs to change for the
 **Authentication → URL Configuration**:
 
 - **Site URL**: `https://fulloffload.com`
-- **Redirect URLs**: `https://fulloffload.com/**`, `http://localhost:5173/**` and `http://127.0.0.1:5173/**`
+- **Redirect URLs**: `https://fulloffload.com/**` only. Local development uses the local stack's own redirect list in `supabase/config.toml`, so prod never needs localhost entries.
 
 Sign-in returns to `https://fulloffload.com/#/auth/callback` (PKCE flow), which the first pattern covers.
 
