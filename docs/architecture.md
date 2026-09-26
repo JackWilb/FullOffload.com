@@ -128,7 +128,7 @@ Row-level security on every table is the top security requirement, because the S
 - **OAuth setup:** a Google Cloud OAuth client and consent screen, and a GitHub OAuth app. Site and redirect URLs point to fulloffload.com, plus localhost for development. Google's consent screen needs a privacy policy URL, so the site includes a one-page privacy policy.
 - **Explicit grants:** every migration that creates a table or view the frontend uses must `grant` minimum privileges to `anon` / `authenticated`. A missing grant shows as `permission denied for table`.
 - **RLS policies:** public read on `devices`, `device_aliases`, `submissions` (the exact commands behind the numbers are public) and the results view, which is `security_invoker` so it reads through the `submissions` policies; users insert only as `auth.uid()` and can delete only their own submissions; signed-in users may insert `user_added` devices. A missing policy shows as an empty result, not an error.
-- **Service role key:** not used by the app at all. Only Jack uses it, locally, for the merge script.
+- **Service role key:** not used by the app at all. The merge script is plain SQL that Jack runs locally with `psql` and the database connection string, so it needs no API key.
 - **Abuse controls:** required sign-in, check constraints and the per-user rate-limit trigger.
 - **Before launch:** audit every table and view for grants and RLS, and test with the anon key that raw writes and cross-user edits are rejected.
 
@@ -153,7 +153,7 @@ The repo is public with an MIT `LICENSE`. There is one Supabase project (prod, f
 
 - **Local dev:** Supabase CLI runs the stack in Docker. Schema changes happen only through committed migrations; never edit the prod schema in the dashboard.
 - **Frontend deploy:** GitHub Actions builds the Vite app and publishes to GitHub Pages (source set to "GitHub Actions"). Custom domain fulloffload.com with HTTPS enforced; Hover DNS points the apex (A/AAAA records) and `www` (CNAME) at GitHub Pages.
-- **Database deploy:** on merge to `main`, an Action runs `supabase db push`.
+- **Database deploy:** on merge to `main`, an Action runs `supabase db push`, then re-applies `supabase/seed.sql` (an idempotent upsert of the curated devices, so spec fixes there reach prod).
 - **Keepalive:** a scheduled Action runs a real query twice a week so the free-tier project doesn't pause after a week of inactivity. GitHub emails on workflow failures and before disabling scheduled workflows in inactive repos, so no custom alerting is needed.
 - **Secrets:** `SUPABASE_ACCESS_TOKEN`, project ref and DB password in GitHub Actions secrets. The anon key and project URL are public and go in frontend config.
 

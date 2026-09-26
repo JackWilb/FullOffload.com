@@ -1,0 +1,125 @@
+name: Deploy
+
+# Runs after CI passes on a push to main: migrate the prod database, then publish the site to
+# GitHub Pages. Each part skips itself, with a notice, until its secrets or variables exist.
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  config:
+    name: Check configuration
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push')
+    runs-on: ubuntu-latest
+    outputs:
+      database: ${{ steps.check.outputs.database }}
+      pages: ${{ steps.check.outputs.pages }}
+    steps:
+      - id: check
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
+          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+          VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ vars.VITE_SUPABASE_ANON_KEY }}
+        run: |
+          if [ -n "$SUPABASE_ACCESS_TOKEN" ] && [ -n "$SUPABASE_PROJECT_REF" ] && [ -n "$SUPABASE_DB_PASSWORD" ]; then
+            echo "database=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "database=false" >> "$GITHUB_OUTPUT"
+            echo "::notice title=Database deploy skipped::Add the SUPABASE_ACCESS_TOKEN, SUPABASE_PROJECT_REF and SUPABASE_DB_PASSWORD repository secrets to deploy migrations (README, Production setup)."
+          fi
+          if [ -n "$VITE_SUPABASE_URL" ] && [ -n "$VITE_SUPABASE_ANON_KEY" ]; then
+            echo "pages=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "pages=false" >> "$GITHUB_OUTPUT"
+            echo "::notice title=Site deploy skipped::Add the VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY repository variables to deploy the site (README, Production setup)."
+          fi
+
+  database:
+    name: Migrate database
+    needs: config
+    if: needs.config.outputs.database == 'true'
+    runs-on: ubuntu-latest
+    env:
+      SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+      SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
+      SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Link the Supabase project
+        run: pnpm supabase link --project-ref "$SUPABASE_PROJECT_REF"
+
+      - name: Apply new migrations
+        run: pnpm supabase db push --yes
+
+      - name: Upsert curated devices
+        # seed.sql is idempotent (upserts on normalized_name), so it runs on every deploy and
+        # spec fixes in it reach prod.
+        run: pnpm supabase db query --linked --file supabase/seed.sql
+
+  pages:
+    name: Deploy site
+    needs: [config, database]
+    # Deploy even when the database job was skipped for missing secrets, but never after it failed.
+    if: >-
+      always() && needs.config.outputs.pages == 'true' &&
+      (needs.database.result == 'success' || needs.database.result == 'skipped')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Build
+        env:
+          VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ vars.VITE_SUPABASE_ANON_KEY }}
+        run: pnpm build
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: web/dist
+
+      - id: deployment
+        uses: actions/deploy-pages@v5
