@@ -63,7 +63,7 @@ Also: `node supabase/scripts/api-audit.mjs --signup` audits grants and RLS over 
 - New migration: `pnpm supabase migration new <name>`, then `pnpm db:reset`, `pnpm test:db` and `pnpm db:types`, and commit the regenerated types. CI fails if the types are stale.
 - Components never call Supabase directly. Reads and writes go through `web/src/lib/api.ts`, so caching can be added there later without touching components.
 - Parser output is canonical lowercase (`llama.cpp`, `qwen3-30b-a3b`, `q4_k_m`). Any parser change adds or updates a fixture in `fixtures/commands/`; the fixtures are the spec.
-- Device-name normalization exists twice: `public.normalize_device_name` in SQL (the source of truth) and `normalizeDeviceName` in `web/src/lib/devices.ts` (for search). Both are tested against `fixtures/device-names.json`; change them together.
+- Device-name normalization exists twice: `public.normalize_device_name` in SQL (the source of truth) and `normalizeDeviceName` in `web/src/lib/devices.ts` (for search). Both are tested against `fixtures/device-names.json`; change them together. `supabase/tests/device_names_test.sql` embeds a copy of that JSON between `$fixture$` markers, and Vitest fails if the two copies differ.
 - UI copy: sentence case, "you", no exclamation marks or emoji. Name the product exactly "Full Offload".
 - Numbers use `ff="monospace"`. Generation and prompt speeds are always separate and labeled "gen" and "prompt".
 - Mobile first: design at 390px, widen with responsive props and `hiddenFrom` / `visibleFrom`. Header-only `AppShell`, no sidebar, no burger.
