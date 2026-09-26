@@ -18,7 +18,9 @@ export default defineConfig({
     },
   },
   webServer: {
-    command: "pnpm exec vite --host 127.0.0.1 --port 4173 --strictPort",
+    // Start Vite directly: behind a pnpm wrapper it can outlive the run and hang CI.
+    command:
+      "node node_modules/vite/bin/vite.js --host 127.0.0.1 --port 4173 --strictPort",
     url: "http://127.0.0.1:4173",
     reuseExistingServer: !process.env.CI,
   },

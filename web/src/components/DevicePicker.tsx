@@ -63,6 +63,7 @@ export function DevicePicker({
     const canAdd =
       onAddDevice !== undefined &&
       addName.length >= 2 &&
+      addName.length <= 80 &&
       !findExactDevice(devices, aliases, addName);
     if (!canAdd) return matches;
     if (matches.length > 0) return [...matches, addName];
