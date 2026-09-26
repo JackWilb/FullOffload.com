@@ -41,6 +41,12 @@ jobs:
       - name: SQL and RLS tests
         run: pnpm test:db
 
+      - name: Security advisors
+        run: pnpm supabase db advisors --local --type security --fail-on warn
+
+      - name: API audit with the anon key
+        run: node supabase/scripts/api-audit.mjs --signup
+
       - name: Generated types are up to date
         run: |
           pnpm db:types

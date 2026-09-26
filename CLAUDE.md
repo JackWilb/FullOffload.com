@@ -45,7 +45,7 @@ Run everything from the repo root with pnpm (never npm or yarn). Node version is
 | `pnpm db:start` / `pnpm db:stop` | Start or stop the local Supabase stack (needs Docker)          |
 | `pnpm db:reset`                  | Recreate the local DB from migrations and run `seed.sql`       |
 | `pnpm db:types`                  | Regenerate `web/src/lib/database.types.ts` from the local DB   |
-| `pnpm test`                      | Vitest: parser fixtures and device-name normalization          |
+| `pnpm test`                      | Vitest: parser fixtures, device names, result sorting          |
 | `pnpm test:db`                   | pgTAP tests against the local stack                            |
 | `pnpm test:e2e`                  | Playwright smoke test (needs the local stack and `web/.env`)   |
 | `pnpm lint` / `pnpm typecheck`   | ESLint + Prettier check / TypeScript                           |
@@ -54,6 +54,8 @@ Run everything from the repo root with pnpm (never npm or yarn). Node version is
 | `pnpm check`                     | lint, typecheck, unit tests and build; run before every commit |
 
 Local setup: `pnpm install`, `pnpm db:start`, `cp web/.env.example web/.env`, `pnpm db:reset`, `pnpm dev`.
+
+Also: `node supabase/scripts/api-audit.mjs --signup` audits grants and RLS over HTTP with the anon key (CI runs it), and `pnpm supabase db advisors --local` runs Supabase's security checks. If Playwright can't download its own Chromium, point it at an installed one with `PLAYWRIGHT_CHROMIUM_EXECUTABLE`.
 
 ## Conventions
 
