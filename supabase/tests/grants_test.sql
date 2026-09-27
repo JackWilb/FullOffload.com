@@ -9,6 +9,7 @@ select plan(33);
 select tables_are('public', array['devices', 'device_aliases', 'submissions']);
 select views_are('public', array['results_by_device']);
 select functions_are('public', array[
+  'delete_own_account',
   'normalize_device_name',
   'device_aliases_normalize',
   'devices_reject_alias_match',
@@ -63,8 +64,8 @@ select is(
   (select array_agg(p.proname::text order by p.proname) from pg_proc p
    where p.pronamespace = 'public'::regnamespace
      and has_function_privilege('authenticated', p.oid, 'execute')),
-  array['normalize_device_name'],
-  'authenticated can execute only normalize_device_name'
+  array['delete_own_account', 'normalize_device_name'],
+  'authenticated can execute only delete_own_account and normalize_device_name'
 );
 
 -- ---------------------------------------------------------------------------------------------

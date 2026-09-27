@@ -23,9 +23,11 @@ import {
   IconLogout,
   IconMoon,
   IconSun,
+  IconTrash,
 } from "@tabler/icons-react";
 import { Link, Outlet, ScrollRestoration, useLocation } from "react-router";
 import { signOut, useAuth } from "../lib/auth";
+import { DeleteAccountModal } from "./DeleteAccountModal";
 import { SignInPanel } from "./SignInPanel";
 
 const SOURCE_URL = "https://github.com/JackWilb/FullOffload.com";
@@ -124,30 +126,42 @@ function AccountMenu({ session }: { session: Session }) {
     "Account";
   const avatarUrl =
     typeof metadata.avatar_url === "string" ? metadata.avatar_url : undefined;
+  const [deleteOpened, deleteAccount] = useDisclosure(false);
 
   return (
-    <Menu position="bottom-end" width={220}>
-      <Menu.Target>
-        <UnstyledButton aria-label="Account menu">
-          <Group gap={6} wrap="nowrap">
-            <Avatar src={avatarUrl} name={name} color="brand" size={28} />
-            <Text size="sm" fw={500} visibleFrom="sm" maw={160} truncate>
-              {name}
-            </Text>
-            <IconChevronDown size={14} stroke={1.5} />
-          </Group>
-        </UnstyledButton>
-      </Menu.Target>
-      <Menu.Dropdown>
-        <Menu.Label>{session.user.email ?? name}</Menu.Label>
-        <Menu.Item
-          leftSection={<IconLogout size={16} stroke={1.5} />}
-          onClick={() => void signOut()}
-        >
-          Sign out
-        </Menu.Item>
-      </Menu.Dropdown>
-    </Menu>
+    <>
+      <Menu position="bottom-end" width={220}>
+        <Menu.Target>
+          <UnstyledButton aria-label="Account menu">
+            <Group gap={6} wrap="nowrap">
+              <Avatar src={avatarUrl} name={name} color="brand" size={28} />
+              <Text size="sm" fw={500} visibleFrom="sm" maw={160} truncate>
+                {name}
+              </Text>
+              <IconChevronDown size={14} stroke={1.5} />
+            </Group>
+          </UnstyledButton>
+        </Menu.Target>
+        <Menu.Dropdown>
+          <Menu.Label>{session.user.email ?? name}</Menu.Label>
+          <Menu.Item
+            leftSection={<IconLogout size={16} stroke={1.5} />}
+            onClick={() => void signOut()}
+          >
+            Sign out
+          </Menu.Item>
+          <Menu.Divider />
+          <Menu.Item
+            color="danger"
+            leftSection={<IconTrash size={16} stroke={1.5} />}
+            onClick={deleteAccount.open}
+          >
+            Delete account
+          </Menu.Item>
+        </Menu.Dropdown>
+      </Menu>
+      <DeleteAccountModal opened={deleteOpened} onClose={deleteAccount.close} />
+    </>
   );
 }
 

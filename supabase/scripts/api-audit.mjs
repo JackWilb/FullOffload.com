@@ -169,6 +169,13 @@ check(
   `HTTP ${viewWrite.status}`,
 );
 await expectStatus(
+  "anon cannot delete an account",
+  "POST",
+  "/rest/v1/rpc/delete_own_account",
+  DENIED,
+  { body: {} },
+);
+await expectStatus(
   "anon cannot call database functions",
   "POST",
   "/rest/v1/rpc/normalize_device_name",

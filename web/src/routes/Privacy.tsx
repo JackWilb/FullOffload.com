@@ -1,6 +1,4 @@
-import { Anchor, List, Stack, Text, Title } from "@mantine/core";
-
-const CONTACT_EMAIL = "privacy@fulloffload.com";
+import { List, Stack, Text, Title } from "@mantine/core";
 
 export function Privacy() {
   return (
@@ -8,7 +6,7 @@ export function Privacy() {
       <title>Privacy · Full Offload</title>
       <Stack gap={6}>
         <Title order={1}>Privacy policy</Title>
-        <Text c="dimmed">Last updated September 26, 2026.</Text>
+        <Text c="dimmed">Last updated September 27, 2026.</Text>
       </Stack>
 
       <Text>
@@ -56,10 +54,13 @@ export function Privacy() {
         <Title order={3}>Deleting your data</Title>
         <Text>
           You can delete any of your own results from the device page: open its
-          commands and use the delete button. To delete your account and
-          everything linked to it, email{" "}
-          <Anchor href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</Anchor> from
-          the address you signed in with. We'll delete it within 30 days.
+          commands and use the delete button. To delete your account and every
+          result you submitted, sign in, open the account menu in the top right
+          and choose{" "}
+          <Text span fw={600}>
+            Delete account
+          </Text>
+          . It takes effect immediately and can't be undone.
         </Text>
       </Stack>
 

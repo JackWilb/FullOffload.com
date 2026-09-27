@@ -207,6 +207,22 @@ export function useDeleteSubmission() {
   });
 }
 
+/**
+ * Deletes the signed-in user's account and every result they submitted, then clears the local
+ * session (the server-side user no longer exists).
+ */
+export function useDeleteAccount() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async () => {
+      const { error } = await supabase.rpc("delete_own_account");
+      if (error) throw error;
+      await supabase.auth.signOut({ scope: "local" });
+    },
+    onSuccess: () => queryClient.invalidateQueries(),
+  });
+}
+
 /** A readable message for a failed Supabase call. */
 export function errorMessage(error: unknown): string {
   const postgrest = error as Partial<PostgrestError> | null;

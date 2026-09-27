@@ -169,6 +169,10 @@ export type Database = {
       };
     };
     Functions: {
+      delete_own_account: {
+        Args: Record<PropertyKey, never>;
+        Returns: undefined;
+      };
       normalize_device_name: { Args: { raw: string }; Returns: string };
     };
     Enums: {
