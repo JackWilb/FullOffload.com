@@ -3,12 +3,14 @@ import { Box, type BoxProps } from "@mantine/core";
 // The Full Offload lockup: the mark (a memory bank filled to the top) and the wordmark.
 // Outlined paths from the design system, so it needs no font. The mark uses the brand text
 // color (brand[6] light, brand[4] dark) and the wordmark follows the surrounding text color.
+// The mark is shifted up 3 units so it centers on the capitals (y 4 to 20) instead of
+// hanging below the baseline.
 export function Logo({ h = 22, ...props }: BoxProps & { h?: number }) {
   return (
     <Box
       component="svg"
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="2 4 165 22"
+      viewBox="2 1 165 22"
       h={h}
       w={(h * 165) / 22}
       role="img"
@@ -16,7 +18,7 @@ export function Logo({ h = 22, ...props }: BoxProps & { h?: number }) {
       display="block"
       {...props}
     >
-      <g fill="var(--mantine-color-brand-text)">
+      <g fill="var(--mantine-color-brand-text)" transform="translate(0 -3)">
         <path
           d="M1 2H3V10A1 1 0 0 0 4 11H12A1 1 0 0 0 13 10V2H15V10A3 3 0 0 1 12 13H4A3 3 0 0 1 1 10Z"
           transform="scale(2)"
