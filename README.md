@@ -156,7 +156,6 @@ Also add the records Resend lists in step 5, and the TXT record from GitHub's do
 
 ### 9. Before launch
 
-- Replace the placeholder `web/public/og-image.png` (1200×630).
 - Submit your own runs through the site.
 - Audit prod: `node supabase/scripts/api-audit.mjs https://wvmjqlrxubletsbpswur.supabase.co <publishable key>` (anon checks only) and `pnpm supabase db advisors --linked`. Expect one warning, `0029` for `delete_own_account`: signed-in users executing that security-definer function is intentional, and it only ever deletes the caller.
 

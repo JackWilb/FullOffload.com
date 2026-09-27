@@ -28,6 +28,7 @@ import {
 import { Link, Outlet, ScrollRestoration, useLocation } from "react-router";
 import { signOut, useAuth } from "../lib/auth";
 import { DeleteAccountModal } from "./DeleteAccountModal";
+import { Logo } from "./Logo";
 import { SignInPanel } from "./SignInPanel";
 
 const SOURCE_URL = "https://github.com/JackWilb/FullOffload.com";
@@ -47,12 +48,11 @@ export function Layout() {
             <Anchor
               component={Link}
               to="/"
-              fw={700}
-              fz="lg"
               c="var(--mantine-color-text)"
               underline="never"
+              aria-label="Full Offload home"
             >
-              Full Offload
+              <Logo h={22} />
             </Anchor>
             <Group gap="xs" wrap="nowrap">
               {!onSubmitPage && (
